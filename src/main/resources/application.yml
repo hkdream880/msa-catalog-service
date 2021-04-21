@@ -1,0 +1,35 @@
+server:
+  port: 0 #0번포트는 랜덤 포
+  
+spring:
+  application:
+    name: catalog-service
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
+      path: /h2-console
+  jpa:    hibernate:      ddl-auto: create-drop
+    show-sql: true
+    generate-ddl: true
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:testdb
+    username: sa
+#    password: 1234
+        
+    
+eureka:
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}} #가본값일경우 클라이언트 포트를 0(랜덤포)으로 했을때 하나의 인스턴스만 표현한
+  client:
+    register-with-eureka: true #유레카에 등
+    fetch-registry: true #외부에서 검색 가능하도
+    service-url:
+      defaultZon: http://127.0.0.1:8761/eureka     
+
+logging:  level:
+    '[com.example.catalogservice]': debug
+    #com.example.catalogservice: DEBUG
